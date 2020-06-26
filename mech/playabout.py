@@ -7,4 +7,4 @@ def factorial(x: int) -> int:
     Returns:
         int: [description]
     """
-    return x * factorial(x-1) if x > 1 else 1
+    return x * factorial(x - 1) if x > 1 else 1
