@@ -1,10 +1,10 @@
 import sys
 
-sys.path.append("..")
-
 import numpy as np
+
 from mech.utils import deg_to_rad
-from mech.car import Car
+
+sys.path.append("..")
 
 
 def test_deg_to_rad():

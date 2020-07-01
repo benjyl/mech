@@ -1,4 +1,3 @@
-g = 9.81
 import numpy as np
 
 
