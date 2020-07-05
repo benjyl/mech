@@ -3,6 +3,8 @@ from car import Car
 
 if __name__ == "__main__":
     car = Car()
+
+    # using dist from matlab
     track = np.linspace(0, 1200, 600)
 
     # # Still to define corner radius
