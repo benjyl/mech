@@ -22,11 +22,11 @@ class Wheel:
     def lateral_force(self, centripetal_force, total_normal_force):
         return centripetal_force * self.normal_force / total_normal_force
 
-    def longitudinal_force(self, acceleration):
+    def longitudinal_force(self, centripetal_force, acceleration):
         return (
-            np.sign(self.acceleration)
+            np.sign(acceleration)
             * self.max_longitudinal_force
-            * (1 - abs(self.lateral_force) ** 2 / self.max_lateral_force ** 2) ** 0.5
+            * (1 - abs(self.lateral_force(centripetal_force)) ** 2 / self.max_lateral_force ** 2) ** 0.5
         )
 
     def pacejka(self, combined_slip):
@@ -44,13 +44,13 @@ class Wheel:
     @property
     def max_lateral_force(self):
         slip_angle_range = np.linspace(0, 15, 30)
-        np.zeroes(30)
+        np.zeros(30)
         combined_slip = slip_angle_range
         return max(self.pacejka(combined_slip))
 
     @property
     def max_longitudinal_force(self):
-        np.zeroes(30)
+        np.zeros(30)
         slip_ratio_range = np.linspace(0, 15, 30)
         combined_slip = slip_ratio_range
         return max(self.pacejka(combined_slip))
@@ -65,9 +65,9 @@ class Car:
 
     # Dynamics
     mass: int = 300
-    displacement: float = 0
     velocity: float = 0
     acceleration: float = 0
+    centripetal_force: float = 0
 
     # Dimensions
     wheelbase: float = 1.55
@@ -82,14 +82,14 @@ class Car:
     drive_ratio: float = 3
     motor_power: int = 80000
     max_torque: int = 240
-    
+
     # Wheels
-    front_wheel: Wheel = Wheel()
-    back_wheel: Wheel = Wheel()
+    model_front_wheel: Wheel = Wheel()
+    model_rear_wheel: Wheel = Wheel()
 
     def update_wheel_loads(self, normal_aero_load=0):
         g = 9.81
-        self.front_wheel.axle_load = (
+        self.model_front_wheel.axle_load = (
             self.mass
             * (
                 g * self.weight_distribution * self.wheelbase
@@ -97,21 +97,20 @@ class Car:
             )
             / self.wheelbase
         ) + normal_aero_load * self.aero_load_distribution
-        self.rear_wheel.axle_load = (
+        self.model_rear_wheel.axle_load = (
             self.mass * g
             + normal_aero_load * (1 - self.aero_load_distribution)
-            - self.front_wheel.axle_load
+            - self.model_front_wheel.axle_load
         )
 
     @property
     def total_normal_force(self):
-        return self.front_wheel.axle_load + self.rear_wheel.axle_load
-
+        return self.model_front_wheel.axle_load + self.model_rear_wheel.axle_load
 
     def update_wheel_torques(self):
         av_wheel_ang_speed = self.velocity / self.wheel_radii
         motor_speed = av_wheel_ang_speed * drive_ratio
         motor_torque = min(self.max_torque, self.motor_power / motor_speed)
 
-        self.front_wheel.axle_torque = 0
-        self.back_wheel.axle_torque = motor_torque * drive_ratio
+        self.model_front_wheel.axle_torque = 0
+        self.model_rear_wheel.axle_torque = motor_torque * drive_ratio
