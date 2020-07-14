@@ -22,11 +22,16 @@ class Wheel:
     def lateral_force(self, centripetal_force, total_normal_force):
         return centripetal_force * self.normal_force / total_normal_force
 
-    def longitudinal_force(self, centripetal_force, acceleration):
+    def longitudinal_force(self, centripetal_force, acceleration, total_normal_force):
         return (
             np.sign(acceleration)
             * self.max_longitudinal_force
-            * (1 - abs(self.lateral_force(centripetal_force)) ** 2 / self.max_lateral_force ** 2) ** 0.5
+            * (
+                1
+                - abs(self.lateral_force(centripetal_force, total_normal_force)) ** 2
+                / self.max_lateral_force ** 2
+            )
+            ** 0.5
         )
 
     def pacejka(self, combined_slip):
@@ -68,6 +73,7 @@ class Car:
     velocity: float = 0
     acceleration: float = 0
     centripetal_force: float = 0
+    tot_normal_force: float = 0
 
     # Dimensions
     wheelbase: float = 1.55
@@ -105,12 +111,12 @@ class Car:
 
     @property
     def total_normal_force(self):
-        return self.model_front_wheel.axle_load + self.model_rear_wheel.axle_load
+        self.tot_normal_force = self.model_front_wheel.axle_load + self.model_rear_wheel.axle_load
 
     def update_wheel_torques(self):
         av_wheel_ang_speed = self.velocity / self.wheel_radii
-        motor_speed = av_wheel_ang_speed * drive_ratio
+        motor_speed = av_wheel_ang_speed * self.drive_ratio
         motor_torque = min(self.max_torque, self.motor_power / motor_speed)
 
         self.model_front_wheel.axle_torque = 0
-        self.model_rear_wheel.axle_torque = motor_torque * drive_ratio
+        self.model_rear_wheel.axle_torque = motor_torque * self.drive_ratio

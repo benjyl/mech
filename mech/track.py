@@ -32,4 +32,11 @@ class Trackpoint:
         self.acceleration = car.acceleration
         self.lateral_force = car.centripetal_force
         self.normal_force = car.total_normal_force
-        self.longitudinal_force = (car.model_front_wheel.longitudinal_force(car.centripetal_force, car.acceleration) + car.model_front_wheel.longitudinal_force(car.centripetal_force, car.acceleration)) * 2
+        self.longitudinal_force = (
+            car.model_front_wheel.longitudinal_force(
+                car.centripetal_force, car.acceleration, car.total_normal_force
+            )
+            + car.model_front_wheel.longitudinal_force(
+                car.centripetal_force, car.acceleration, car.total_normal_force
+            )
+        ) * 2
