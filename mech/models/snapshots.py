@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from simulate.reactions import WheelReactionSet
+from simulate.reactions import WheelReactionSet, WheelLoadSet
 
 from .loads import CarLoad
 from .track import Trackpoint

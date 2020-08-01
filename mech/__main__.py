@@ -1,4 +1,4 @@
-from models.car import Car
+from .interface.cli import load_config
 
 if __name__ == "__main__":
-    car = Car()
+    car_model, trackpoints = load_config()
