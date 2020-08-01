@@ -1,0 +1,69 @@
+body_mass: 320
+axle_span: 2
+axle_separation: 3
+
+centre_height: 0.3
+centre_lateral_offset: 0
+centre_longitudinal_offset: 0
+
+normal_drag_factor: 0
+lateral_drag_factor: 0
+longitudinal_drag_factor: 0
+
+engine:
+    drive_ratio: 3
+    max_torque: 240
+    motor_power: 80000
+
+brakes:
+    max_force: 50
+    radial_offset: 0.1
+
+wheels:
+  front_right:
+    wheel_mass: 10
+    wheel_width: 0.2
+    wheel_radius: 0.15
+
+    shape_factor: 0.0180
+    stiffness_factor: 18.6206
+    curvature_factor: 1.1095
+
+    max_slip_angle: 30
+    max_slip_ratio: 30
+
+  front_left:
+    wheel_mass: 10
+    wheel_width: 0.2
+    wheel_radius: 0.15
+
+    shape_factor: 0.0180
+    stiffness_factor: 18.6206
+    curvature_factor: 1.1095
+
+    max_slip_angle: 30
+    max_slip_ratio: 30
+
+  rear_right:
+    wheel_mass: 10
+    wheel_width: 0.2
+    wheel_radius: 0.15
+
+    shape_factor: 0.0180
+    stiffness_factor: 18.6206
+    curvature_factor: 1.1095
+
+    max_slip_angle: 30
+    max_slip_ratio: 30
+
+  rear_left:
+    wheel_mass: 10
+    wheel_width: 0.2
+    wheel_radius: 0.15
+
+    shape_factor: 0.0180
+    stiffness_factor: 18.6206
+    curvature_factor: 1.1095
+
+    max_slip_angle: 30
+    max_slip_ratio: 30
