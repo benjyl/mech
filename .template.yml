@@ -1,0 +1,23 @@
+package: True
+
+name: mech
+version: 0.1.0
+description: Formula student simulator
+
+author: Joel Lefkowitz
+author_email: joellefkowitz@hotmail.com
+author_github: JoelLefkowitz
+
+private: False
+
+package_name: mech
+
+buildbot_worker_password: "Is this a pigeon?"
+buildbot_database_password: "Is this a pigeon?"
+
+keywords: [mechanics, dynamics, simulator]
+twine_username: joellefkowitz
+python_version: 3.6
+
+console_scripts: []
+install_requires: []
