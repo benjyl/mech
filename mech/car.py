@@ -9,18 +9,22 @@ class Wheel:
     # Dynamics
     axle_load: float = 0
     axle_torque: float = 0
+    full_normal_force: float = 0
 
     # Model factors
     shape_factor: float = 0.0180
     stiffness_factor: float = 18.6206
     curvature_factor: float = 1.1095
+    
 
     @property
     def normal_force(self):
-        return self.axle_load / 2
+        self.full_normal_force = self.axle_load / 2
 
     def lateral_force(self, centripetal_force, total_normal_force):
-        return centripetal_force * self.normal_force / total_normal_force
+
+        print(type(total_normal_force), total_normal_force)
+        return centripetal_force * self.full_normal_force / total_normal_force
 
     def longitudinal_force(self, centripetal_force, acceleration, total_normal_force):
         return (
@@ -37,7 +41,8 @@ class Wheel:
     def pacejka(self, combined_slip):
         horizontal_shift = 0
         x = 0.0174533 * combined_slip + horizontal_shift
-        return np.sin(
+        d = 3.5223*10**4 * 0.5 * self.axle_load / 180 * 0.6
+        return d * np.sin(
             self.shape_factor
             * np.arctan(
                 self.stiffness_factor * x
@@ -95,6 +100,7 @@ class Car:
 
     def update_wheel_loads(self, normal_aero_load=0):
         g = 9.81
+        
         self.model_front_wheel.axle_load = (
             self.mass
             * (
@@ -103,6 +109,7 @@ class Car:
             )
             / self.wheelbase
         ) + normal_aero_load * self.aero_load_distribution
+
         self.model_rear_wheel.axle_load = (
             self.mass * g
             + normal_aero_load * (1 - self.aero_load_distribution)

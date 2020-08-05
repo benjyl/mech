@@ -10,8 +10,9 @@ if __name__ == "__main__":
     car = Car(velocity=0, acceleration=10, centripetal_force=0)
     trackpoints = Trackpoint.from_csv("fixtures/dist.csv", "fixtures/radius.csv")
     time = 0
+    suvat_velocity = 0
 
-    trackpoints[0].update(time=0, car=car)
+#    trackpoints[0].update(time=0, car=car)
 
     # need to update acceleration at all points except last so start with first point
     for point, next_point in zip(trackpoints[:-1], trackpoints[1:]):
@@ -22,23 +23,24 @@ if __name__ == "__main__":
         while abs((car.acceleration - prev_acceleration) / prev_acceleration) > 0.1:
 
             # finding the loads on front and rear axles
-            car.update_wheel_loads
+            car.update_wheel_loads()
+            # print(car.model_front_wheel.axle_load)
             # storing normal forces at front and rear of cars
-            front_normal_force = 2*car.model_front_wheel.normal_force
-            rear_normal_force = car.model_rear_wheel.normal_force
+            front_normal_force = 2*car.model_front_wheel.full_normal_force
+            rear_normal_force = car.model_rear_wheel.full_normal_force
 
             # using method to update total normal force in the car
             car.total_normal_force
+            print(car.tot_normal_force)
     
             # finding max possible lateral forces on both axles
             front_max_lateral = car.model_front_wheel.max_lateral_force
             rear_max_lateral = car.model_rear_wheel.max_lateral_force
 
             # summing all lateral forces multiply by 2 as 2 wheels at front and rear
-            total_lateral = sum(
-                2 * front_max_lateral,
-                2 * rear_max_lateral
-            )
+            total_lateral = 2 * front_max_lateral + 2 * rear_max_lateral
+            # print(front_max_lateral, rear_max_lateral, total_lateral)
+    
 
             # finding velocity at all points purely on maximum lateral force and curvature radius
             centripetal_limited_velocity = abs(
@@ -69,9 +71,7 @@ if __name__ == "__main__":
                 car.centripetal_force, car.acceleration, car.tot_normal_force
             )
 
-            total_longitudinal_force = sum(
-                front_longitudinal, rear_longitudinal
-            )
+            total_longitudinal_force = front_longitudinal + rear_longitudinal
 
             # find wheel torques based on car velocity
             car.update_wheel_torques
