@@ -2,6 +2,7 @@ from collections import namedtuple
 from dataclasses import dataclass
 
 from .brakes import Brakes
+from .engine import Engine
 from .car import Car
 
 
@@ -39,13 +40,22 @@ class CarLoad:
 
 @dataclass
 class WheelLoad:
-    brakes: Brakes
-    braking_force: float
-    applied_torque: float
+    car: Car
+    braking_level: float
+    engine_level: float
+    longitudinal_velocity: float
+
+    @property
+    def braking_force(self) -> float:
+        return self.car.brakes.force(self.braking_level)
 
     @property
     def braking_torque(self) -> float:
-        return self.braking_force * self.brakes.radial_offset
+        return self.car.brakes.torque(self.braking_level)
+
+    @property
+    def engine_torque(self) -> float:
+        return self.car.engine.torque(self.engine_level, self.longitudinal_velocity)
 
 
 WheelLoadSet = namedtuple(
