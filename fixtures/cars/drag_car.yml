@@ -6,9 +6,9 @@ centre_height: 0.3
 centre_lateral_offset: 0
 centre_longitudinal_offset: 0
 
-normal_drag_factor: 0
-lateral_drag_factor: 0
-longitudinal_drag_factor: 0
+normal_drag_factor: 1
+lateral_drag_factor: 1
+longitudinal_drag_factor: 1
 
 engine:
     drive_ratio: 3
