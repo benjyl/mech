@@ -1,0 +1,53 @@
+{
+   "version": "0.2.0",
+   "configurations": [
+      {
+         "name": "Mech - Module",
+         "type": "python",
+         "request": "launch",
+         "module": "mech",
+         "pythonPath": "${command:python.interpreterPath}",
+         "justMyCode": false,
+         "args": [
+            "-a",
+            "fixtures/tracks/straight/arc_length.csv",
+            "-r",
+            "fixtures/tracks/straight/radius_of_curvature.csv"
+         ]
+      },
+      {
+         "name": "Mech - Custom",
+         "type": "python",
+         "request": "launch",
+         "module": "mech",
+         "pythonPath": "${command:python.interpreterPath}",
+         "justMyCode": false,
+         "args": [
+            "-c",
+            "fixtures/cars/heavy_car.yml",
+            "-a",
+            "fixtures/tracks/straight/arc_length.csv",
+            "-r",
+            "fixtures/tracks/straight/radius_of_curvature.csv"
+         ]
+      },
+      {
+         "name": "Mech - Tests",
+         "type": "python",
+         "request": "launch",
+         "module": "pytest",
+         "pythonPath": "${command:python.interpreterPath}",
+         "justMyCode": false,
+         "args": [
+            "-s",
+         ]
+      },
+      {
+         "name": "Python: Current File",
+         "type": "python",
+         "request": "launch",
+         "program": "${file}",
+         "console": "integratedTerminal"
+      }
+   ]
+}
