@@ -1,14 +1,9 @@
-from collections import namedtuple
-from dataclasses import dataclass
+from .base import Vector, QuadrigeminalSet
 
 
-@dataclass
-class ReactionSet:
-    normal_reaction: float
-    lateral_reaction: float
-    longitudinal_reaction: float
+class Reaction(Vector):
+    pass
 
 
-WheelReactionSet = namedtuple(
-    "WheelReactionSet", ["front_right", "front_left", "rear_right", "rear_left"],
-)
+class WheelReactionSet(QuadrigeminalSet[Reaction]):
+    pass

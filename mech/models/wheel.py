@@ -2,6 +2,8 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from .base import QuadrigeminalSet, Vector
+
 
 @dataclass
 class Wheel:
@@ -37,3 +39,7 @@ class Wheel:
             self.pacejka(combined_slip=slip_ratio, horizontal_shift=0)
             for slip_ratio in np.linspace(0, self.max_slip_ratio, 30)
         )
+
+
+class WheelSet(QuadrigeminalSet[Wheel]):
+    pass

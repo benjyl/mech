@@ -22,8 +22,15 @@ class DynamicSnapshot:
 
 
 @dataclass
+class ControlSnapshot:
+    engine_level: float
+    braking_level: float
+
+
+@dataclass
 class Snapshot:
     time: float
     trackpoint: Trackpoint
+    control: ControlSnapshot
     dynamics: DynamicSnapshot
     kinemeatics: KinemeaticSnapshot

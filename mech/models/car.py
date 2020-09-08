@@ -1,13 +1,8 @@
-from collections import namedtuple
 from dataclasses import dataclass
 
 from .brakes import Brakes
 from .engine import Engine
-from .wheel import Wheel
-
-WheelSet = namedtuple(
-    "WheelSet", ["front_right", "front_left", "rear_right", "rear_left"],
-)
+from .wheel import Wheel, WheelSet
 
 
 @dataclass
@@ -26,4 +21,4 @@ class Car:
 
     engine: Engine = Engine()
     brakes: Brakes = Brakes()
-    wheels: WheelSet = WheelSet(Wheel(), Wheel(), Wheel(), Wheel())
+    wheels: WheelSet = WheelSet()

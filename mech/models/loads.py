@@ -58,6 +58,5 @@ class WheelLoad:
         return self.car.engine.torque(self.engine_level, self.longitudinal_velocity)
 
 
-WheelLoadSet = namedtuple(
-    "WheelLoadSet", ["front_right", "front_left", "rear_right", "rear_left"],
-)
+class WheelLoadSet(QuadrigeminalSet[WheelLoad]):
+    pass

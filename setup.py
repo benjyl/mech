@@ -3,7 +3,7 @@ from setuptools import setup
 if __name__ == "__main__":
     setup(
         install_requires=["numpy", "ruamel.yaml", "yummy_cereal"],
-        console_scripts=[],
+        entry_points={"console_scripts": ["mech = mech.__main__:entrypoint"]},
         extras_require={
             "dist": ["wheel", "twine", "bump2version"],
             "docs": [

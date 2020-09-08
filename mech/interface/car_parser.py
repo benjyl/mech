@@ -6,7 +6,6 @@ from ..models.engine import Engine
 from ..models.brakes import Brakes
 
 
-
 def parse_car(car_yaml: str) -> Car:
     car_parser = AnnotationsParser(
         Car,
